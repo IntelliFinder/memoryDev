@@ -1,43 +1,39 @@
-
 class NameForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value1: '', value2: ''};
+    this.state = {value: '', second: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     
-    this.handleChange  = this.handleChange.bind(this);
-    this.handleSubmit  = this.handleSubmit.bind(this);
-    this.handleChange2 = this.handleChange2.bind(this);
-    this.handleSubmit2 = this.handleSubmit2.bind(this);
+    this.handleChangeTwo = this.handleChangeTwo.bind(this);
+    this.handleSubmitTwo = this.handleSubmitTwo.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value1: event.target.value1});
+    this.setState({value: event.target.value});
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value1);
+    alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
   }
-//handleChange2
-//handleSubmit2
-//lifecycle event to use comparison condition
+handleChangeTwo(event){
+       this.setState({second: event.target.value});
+}
+handleSubmitTwo(){
+    alert('A name was submitted: ' + this.state.second);
+    event.preventDefault();
+}
   render() {
     let msgBool=null;
-    if(this.state.value1===this.state.value2){
+    if(this.state.value===this.state.second){
       msgBool=true;}
     else{
       msgBool=false;}
-   return (
+    
+    return (
       <div>
-        
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={this.state.value1} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-        <hr/>
       <form onSubmit={this.handleSubmit}>
         <label>
           Name:
@@ -45,13 +41,19 @@ class NameForm extends React.Component {
         </label>
         <input type="submit" value="Submit" />
       </form>
-      <Notification msg={msgBool} />
-      </div>
-   );
+        <hr/>
+      <form onSubmit={this.handleSubmitTwo}>
+        <label>
+          Name:
+          <input type="text" value={this.state.second} onChange={this.handleChangeTwo} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+        <Notification msg={msgBool}/>
+    </div>
+        );
   }
 }
-
-
 function Notification(props){
   const msg=props.msg;
   if(msg){
@@ -61,8 +63,6 @@ function Notification(props){
   }
   
 }
-
-
 ReactDOM.render(
   <NameForm />,
   document.getElementById('root')
