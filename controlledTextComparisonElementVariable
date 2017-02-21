@@ -1,0 +1,69 @@
+
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value1: '', value2: ''};
+    
+    this.handleChange  = this.handleChange.bind(this);
+    this.handleSubmit  = this.handleSubmit.bind(this);
+    this.handleChange2 = this.handleChange2.bind(this);
+    this.handleSubmit2 = this.handleSubmit2.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value1: event.target.value1});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value1);
+    event.preventDefault();
+  }
+//handleChange2
+//handleSubmit2
+//lifecycle event to use comparison condition
+  render() {
+    let msgBool=null;
+    if(this.state.value1===this.state.value2){
+      msgBool=true;}
+    else{
+      msgBool=false;}
+   return (
+      <div>
+        
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value1} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+        <hr/>
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+      <Notification msg={msgBool} />
+      </div>
+   );
+  }
+}
+
+
+function Notification(props){
+  const msg=props.msg;
+  if(msg){
+    return <h1>Identical</h1>;
+  } else {
+    return <h1>Not Identical</h1>;
+  }
+  
+}
+
+
+ReactDOM.render(
+  <NameForm />,
+  document.getElementById('root')
+);
